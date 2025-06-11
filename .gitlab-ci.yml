@@ -17,3 +17,4 @@ pages:
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
 
+# This is a comment to trigger the pipeline to rebuild
