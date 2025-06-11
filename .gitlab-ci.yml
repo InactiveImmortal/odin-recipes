@@ -14,7 +14,3 @@ create-pages:
     - mkdir .public
     - cp -r *.public
     - mv .public public
-    artifacts:
-        - public
-    only:
-        - main
