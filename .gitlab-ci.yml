@@ -1,17 +1,19 @@
 # The Docker image that will be used to build your app
-image: node:lts
-create-pages:
-  pages:
-    # The folder that contains the files to be exposed at the Page URL
-    publish: public
-  rules:
-    # This ensures that only pushes to the default branch will trigger
-    # a pages deploy
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-  # Functions that should be executed before the build script is run
-  before_script: []
+image: alpine:latest
+
+pages:
+  stage: deploy
   script:
-    - mkdir .public
-    - mkdir public
-    - cp -r *.public
-    - mv .public public
+    # Create the public directory
+    - mkdir -p public
+    # Copy all HTML files and assets to the public directory
+    - cp -r *.html public/ 2>/dev/null || true
+    - cp -r css public/ 2>/dev/null || true
+    - cp -r js public/ 2>/dev/null || true
+    - cp -r images public/ 2>/dev/null || true
+    - cp -r assets public/ 2>/dev/null || true
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
